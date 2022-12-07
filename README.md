@@ -43,7 +43,7 @@ For detailed usage, please refer to `icp.py`.
 
 ## Example
 
-Use the script `scripts/run_icp.sh` to align the example point clouds placed in `data/cal` and save to `data/out`. Then visualize the original and aligned point clouds in MeshLab (the original point clouds on the left and the aligned ones on the right). Each iteration takes about 0.28s on NVIDIA RTX3090 (with Intel i9-12900K).
+The example data can be found [here](https://github.com/YOUSIKI/cuicp/releases/download/cuicp/example_data.tar.gz). Please download the tar and extract to `./data/cal`. Use the script `scripts/run_icp.sh` to align the example point clouds placed in `data/cal` and save to `data/out`. Then visualize the original and aligned point clouds in MeshLab (the original point clouds on the left and the aligned ones on the right). Each iteration takes about 0.28s on NVIDIA RTX3090 (with Intel i9-12900K).
 
 ![MeshLab visualization](static/meshlab_visualization.png)
 
