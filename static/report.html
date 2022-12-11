@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>&#x8ba1;&#x7b97;&#x673a;&#x89c6;&#x89c9; III &#x4e09;&#x7ef4;&#x89c6;&#x89c9; &#x5b9e;&#x9a8c;&#x62a5;&#x544a;</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+/* From extension ms-toolsai.jupyter */
+/* These classnames are inherited from bootstrap, but are present in most notebook renderers */
+
+.alert {
+    width: auto;
+    padding: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.alert > *:last-child {
+    margin-bottom: 0;
+}
+#preview > .alert:last-child {
+    /* Prevent this being set to zero by the default notebook stylesheet */
+    padding-bottom: 1em;
+}
+
+.alert-success {
+    /* Note there is no suitable color available, so we just copy "info" */
+    background-color: var(--theme-info-background);
+    color: var(--theme-info-foreground);
+}
+.alert-info {
+    background-color: var(--theme-info-background);
+    color: var(--theme-info-foreground);
+}
+.alert-warning {
+    background-color: var(--theme-warning-background);
+    color: var(--theme-warning-foreground);
+}
+.alert-danger {
+    background-color: var(--theme-error-background);
+    color: var(--theme-error-foreground);
+}
+
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="计算机视觉-iii-三维视觉-实验报告">计算机视觉 III 三维视觉 实验报告</h1>
+<table>
+<thead>
+<tr>
+<th>姓名</th>
+<th>学号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>杨思祺</td>
+<td>2201111753</td>
+</tr>
+</tbody>
+</table>
+<h2 id="实验过程">实验过程</h2>
+<p>首先，使用 MeshLab 软件预览扫描得到的点云（对应 <code>data/raw</code> 目录下的六个 <code>.asc</code> 文件），如下图所示，六次扫描得到的点云以不同的角度叠放在一起。</p>
+<p><img src="file:///c:\Users\yousiki\Desktop\cuicp\static\meshlab_snapshots\snapshot00.png" alt="snapshot00"></p>
+<p>接下来，使用 Geomagic Warp 软件进行初步配准，得到的新点云（对应 <code>data/cal</code> 目录下的六个 <code>.asc</code> 文件）在 MeshLab 中可视化结果如下图所示。</p>
+<p><img src="file:///c:\Users\yousiki\Desktop\cuicp\static\meshlab_snapshots\snapshot01.png" alt="snapshot01"></p>
+<p>已经可以大致看出石膏模型的轮廓，但是在模型边缘等处仍然存在非常明显的偏差。</p>
+<p>我使用 Python 实现了 Iterative Closest Point 算法（对应 <code>icp.py</code> 文件），然后通过将 <code>data/cal</code> 目录下的前五个点云分别对齐到第六个点云上，实现六个点云的配准（具体步骤见 <code>scripts/run_icp.sh</code>，输出结果为 <code>data/out</code> 下的六个 <code>.asc</code> 文件）。经过 ICP 算法对齐之后的点云如下图所示。</p>
+<p><img src="file:///c:\Users\yousiki\Desktop\cuicp\static\meshlab_snapshots\snapshot02.png" alt="snapshot02"></p>
+<p>可以看出配准之后的结果更加准确。</p>
+<h2 id="实现细节">实现细节</h2>
+<ul>
+<li><code>icp.py</code> 通过使用 <code>cuml</code> 库和 <code>cupy</code> 库，实现在 NVIDIA GPU 上的高效代数运算和 K 近邻查询。</li>
+<li>在实验中，通过尝试不同的 <code>percentile</code> 参数，我发现将其置为 0.5 可以在大部分数据上取得很好的效果。</li>
+<li>详细的运行环境说明请参见 <code>README.md</code>。</li>
+</ul>
+
+        
+        
+    </body>
+    </html>
