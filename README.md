@@ -1,4 +1,6 @@
-# Iterative closest point algorithm accelerated by CUDA
+# cuicp
+
+CUDA accelerated iterative closest point algorithm.
 
 ## Environment
 
